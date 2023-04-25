@@ -52,7 +52,7 @@ public class MainFragment extends Fragment {
                 // insert new note
                 Notes note = new Notes();
                 note.title = String.valueOf(editTextTitle.getText());
-                note.note = String.valueOf(editTextTitle.getText());
+                note.note = String.valueOf(editTextNote.getText());
                 NotesDAO dao = db.notesDAO();
                 dao.insertNewNote(note);
                 // clear texts

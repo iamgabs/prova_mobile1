@@ -11,8 +11,12 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.prova.databinding.FragmentMainBinding;
@@ -24,6 +28,7 @@ import com.example.prova.model.entity.Notes;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SecondaryFragment extends Fragment {
@@ -72,40 +77,50 @@ public class SecondaryFragment extends Fragment {
         View btnGoBack = binding.buttonGoBack;
         btnGoBack.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_secondaryFragment_to_mainFragment));
 
-        // action clear all history
-        View clearAll = binding.buttonCA;
-        clearAll.setOnClickListener(view1 -> {
-            dao.clearAll();
+        // insert all
+        ArrayList<Notes> listNotes = (ArrayList<Notes>) dao.getAllNotes();
+        ArrayList<String> notes = new ArrayList<String>();
+
+        for(Notes notations : listNotes) {
+            String s = notations.title + "" + notations.note;
+            notes.add(s);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1,
+                notes);
+
+        ListView listView = (ListView) binding.listView;
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = i;
+            }
         });
 
-        // insert all
-        LinearLayout layout = binding.linearLayout2;
-
-        List<Notes> listNotes = dao.getAllNotes();
-        for(int i=0; i< listNotes.size(); i++){
-            LinearLayout line = createNewLayout(getContext());
-            line.setOrientation(LinearLayout.HORIZONTAL);
-
-
-            TextView tv = createTextView(getContext());
-            tv.setText(String.valueOf(listNotes.get(i).id)+String.valueOf(listNotes.get(i).title)+String.valueOf(listNotes.get(i).note));
-
+        /*for(int i=0; i< listNotes.size(); i++){
             Button btn = createButton(getContext());
             int id = listNotes.get(i).id;
 
-            line.addView(tv);
-            line.addView(btn);
-
-            layout.addView(line);
+            listView.addView(btn);
 
             btn.setId(id);
             btn.setOnClickListener(view1 -> {
                 dao.deleteNote(id);
-                layout.removeView(line);
+                listView.removeView(btn);
+                listView.removeViewAt(id);
             });
-        }
+        }*/
 
-
+        // action clear all history
+        View clearAll = binding.buttonCA;
+        clearAll.setOnClickListener(view1 -> {
+            dao.clearAll();
+            for(int i=0; i< notes.size(); i++) {
+                listView.removeViewAt(i);
+            }
+        });
 
     }
 }
