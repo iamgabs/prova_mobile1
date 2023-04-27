@@ -1,6 +1,7 @@
 package com.example.prova;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,32 +97,34 @@ public class SecondaryFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = i;
+                int pos = i + 1;
+                Bundle bundle = new Bundle();
+                bundle.putInt("notesID", listNotes.get(i).id);
+                Intent intent = new Intent(getContext(), MainFragment.class);
+                intent.putExtras(bundle);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Substituir o fragmento atual pelo próximo fragmento
+//                        getParentFragmentManager().beginTransaction()
+//                                .replace(android.R.id.content, new MainFragment())
+//                                .commit();
+//                    }
+//                }, 0);
+                Navigation.findNavController(view).navigate(R.id.mainFragment);
             }
         });
 
-        /*for(int i=0; i< listNotes.size(); i++){
-            Button btn = createButton(getContext());
-            int id = listNotes.get(i).id;
 
-            listView.addView(btn);
-
-            btn.setId(id);
-            btn.setOnClickListener(view1 -> {
-                dao.deleteNote(id);
-                listView.removeView(btn);
-                listView.removeViewAt(id);
-            });
-        }*/
 
         // action clear all history
         View clearAll = binding.buttonCA;
         clearAll.setOnClickListener(view1 -> {
             dao.clearAll();
-            for(int i=0; i< notes.size(); i++) {
-                listView.removeViewAt(i);
-            }
+            adapter.clear();
+            adapter.notifyDataSetChanged();
         });
+
 
     }
 }

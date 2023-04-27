@@ -9,4 +9,5 @@
     <string name="notas">Notas</string>
     <string name="voltar">Voltar</string>
     <string name="excluir_tudo">Excluir tudo</string>
+    <string name="excluir">excluir</string>
 </resources>
