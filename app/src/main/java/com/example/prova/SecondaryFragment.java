@@ -97,20 +97,11 @@ public class SecondaryFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = i + 1;
+                int pos = i;
                 Bundle bundle = new Bundle();
-                bundle.putInt("notesID", listNotes.get(i).id);
-                Intent intent = new Intent(getContext(), MainFragment.class);
-                intent.putExtras(bundle);
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // Substituir o fragmento atual pelo próximo fragmento
-//                        getParentFragmentManager().beginTransaction()
-//                                .replace(android.R.id.content, new MainFragment())
-//                                .commit();
-//                    }
-//                }, 0);
+                bundle.putInt("p_notesID", listNotes.get(i).id);
+
+                getParentFragmentManager().setFragmentResult("p_notesID", bundle);
                 Navigation.findNavController(view).navigate(R.id.mainFragment);
             }
         });
