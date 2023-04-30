@@ -82,6 +82,12 @@ public class MainFragment extends Fragment {
             clearTexts(editTextTitle, editTextNote);
         }
     }
+
+    private void createToast(Context context, String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -94,26 +100,22 @@ public class MainFragment extends Fragment {
         View btnSave = binding.buttonSave;
         btnSave.setOnClickListener(view1 -> {
 
-            if(editTextNote.equals("") || editTextNote.equals("")) {
-                return;
-            } else if(note.id != 0){
+            if(!(editTextTitle.equals("") || editTextNote.equals(""))) {
                 note.title = String.valueOf(editTextTitle.getText());
                 note.note = String.valueOf(editTextNote.getText());
-
-                dao.updateNote(note);
-
-                // clear texts
-                clearTexts(editTextTitle, editTextNote);
-            } else {
-                // insert new note
-                note.title = String.valueOf(editTextTitle.getText());
-                note.note = String.valueOf(editTextNote.getText());
-
-                dao.insertNewNote(note);
-
-                // clear texts
-                clearTexts(editTextTitle, editTextNote);
+                if(note.id != 0){
+                    // update note
+                    dao.updateNote(note);
+                    createToast(getContext(), "atualizado com sucesso!");
+                } else {
+                    // insert new note
+                    dao.insertNewNote(note);
+                    createToast(getContext(), "cadastrado com sucesso!");
+                }
             }
+
+            // clear texts
+            clearTexts(editTextTitle, editTextNote);
         });
 
         // button "VER NOTAS"
@@ -126,8 +128,9 @@ public class MainFragment extends Fragment {
             try {
                 dao.deleteNote(note.id);
                 clearTexts(editTextTitle, editTextNote);
+                createToast(getContext(), "Nota deletada");
             } catch (Exception e) {
-                Toast.makeText(getContext(), "impossivel deletar", Toast.LENGTH_SHORT).show();
+                createToast(getContext(), "Não foi possivel deletar esta nota");
             }
 
         });
