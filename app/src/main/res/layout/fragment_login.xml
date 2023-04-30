@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
 
-
-    <EditText
+<EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="36dp"
-        android:text="Logar"
+        android:text="@string/logar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
@@ -32,19 +32,23 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="66dp"
         android:ems="10"
-        android:hint="cpf"
+        android:hint="@string/cpf"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="253dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonSwitchToSignin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="96dp"
-        android:text="Não tenho uma conta"
+        android:background="#00000000"
+        android:textColor="#000000"
+        android:text="@string/n_o_tenho_uma_conta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -54,7 +58,7 @@
         android:layout_height="67dp"
         android:layout_marginStart="144dp"
         android:layout_marginTop="120dp"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="#000000"
         android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"

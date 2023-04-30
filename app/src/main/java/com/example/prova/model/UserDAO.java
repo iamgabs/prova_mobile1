@@ -20,6 +20,6 @@ public interface UserDAO {
     @Query("SELECT * FROM user")
     List<User> getAllUsers();
 
-    @Query("SELECT * FROM notes WHERE notes.user == user")
-    List<Notes> getAllNotes(User user);
+    @Query("SELECT * FROM notes WHERE userId == :id")
+    List<Notes> getAllNotes(int id);
 }

@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".SigninFragment">
 
-    <EditText
+<EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="name"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -24,7 +25,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
@@ -33,9 +34,9 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="52dp"
-        android:text="cadastrar"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/signin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
@@ -46,18 +47,20 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="cpf"
+        android:hint="@string/cpf"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonSwitchToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="92dp"
-        android:text="Já tenho uma conta"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="100dp"
+        android:background="#00000000"
+        android:textColor="#000000"
+        android:text="@string/j_tenho_uma_conta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
@@ -68,7 +71,7 @@
         android:layout_marginStart="181dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="192dp"
-        android:text="Signin"
+        android:text="@string/signin"
         android:textColor="#000000"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"

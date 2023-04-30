@@ -10,4 +10,13 @@
     <string name="voltar">Voltar</string>
     <string name="excluir_tudo">Excluir tudo</string>
     <string name="excluir">excluir</string>
+    <string name="name">name</string>
+    <string name="password">password</string>
+    <string name="cadastrar">cadastrar</string>
+    <string name="cpf">cpf</string>
+    <string name="j_tenho_uma_conta">Já tenho uma conta</string>
+    <string name="signin">Signin</string>
+    <string name="n_o_tenho_uma_conta">Não tenho uma conta</string>
+    <string name="login">Login</string>
+    <string name="logar">Logar</string>
 </resources>
