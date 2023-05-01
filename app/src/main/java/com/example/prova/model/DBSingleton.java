@@ -14,7 +14,7 @@ public class DBSingleton {
         if(object == null) {
             object = new DBSingleton();
             object.db = Room.databaseBuilder(context, Database.class,
-                    "notes").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    "db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         }
         return object;
     }

@@ -1,9 +1,9 @@
 package com.example.prova.model;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.prova.model.entity.Notes;
@@ -20,7 +20,7 @@ public interface NotesDAO {
     @Query("DELETE FROM notes")
     void clearAll();
 
-    @Query("DELETE FROM notes Where id == :id")
+    @Query("DELETE FROM notes Where notes.id == :id")
     void deleteNote(int id);
 
     @Query("SELECT * FROM notes Where id == :id")
@@ -29,8 +29,8 @@ public interface NotesDAO {
     @Update
     void updateNote(Notes note);
 
-    @Query("SELECT * FROM notes WHERE userId == :id")
-    List<Notes> getNotesListForUser(int id);
+    @Query("SELECT * FROM user JOIN notes on user.id == notes.userId WHERE notes.userId == :userId")
+    Map<User, List<Notes>> getNotesByUser(int userId);
 
     @Query("SELECT * FROM notes")
     List<Notes> getAllNotes();

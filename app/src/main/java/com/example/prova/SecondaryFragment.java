@@ -1,69 +1,60 @@
 package com.example.prova;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.prova.databinding.FragmentMainBinding;
+import android.widget.ListView;
+
 import com.example.prova.databinding.FragmentSecondaryBinding;
-import com.example.prova.model.DBSingleton;
 import com.example.prova.model.Database;
 import com.example.prova.model.NotesDAO;
 import com.example.prova.model.entity.Notes;
-
-import org.w3c.dom.Text;
+import com.example.prova.model.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.example.prova.Util.getInstanceOfDatabase;
 
 public class SecondaryFragment extends Fragment {
 
     FragmentSecondaryBinding binding;
+    int userId;
 
     public SecondaryFragment() {
         super(R.layout.fragment_secondary);
     }
 
-    private TextView createTextView(Context context) {
-        TextView tv = new TextView(context);
-        tv.setWidth(300);
-        return tv;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-
-    private LinearLayout createNewLayout(Context context) {
-        LinearLayout layout = new LinearLayout(context);
-        layout.setMinimumWidth(View.MEASURED_SIZE_MASK);
-        return layout;
-    }
-
-    private Button createButton(Context context){
-        Button btn = new Button(context);
-        btn.setText("X");
-        return btn;
-    }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding  = FragmentSecondaryBinding.inflate(inflater, container, false);
+
+        getParentFragmentManager().setFragmentResultListener("userId", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                userId = bundle.getInt("userId");
+                System.out.println("Pegou:" + userId);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -71,8 +62,13 @@ public class SecondaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        DBSingleton object = DBSingleton.object.getInstance(getContext());;
-        Database db = object.db;
+        if(!UserConfig.logged) {
+            Navigation.findNavController(view).navigate(R.id.loginFragment);
+        }
+
+        System.out.println("USER ID >>>>>>>>>>>" + userId);
+
+        Database db = getInstanceOfDatabase(getContext());
         NotesDAO dao = db.notesDAO();
 
         // go back action
@@ -80,16 +76,26 @@ public class SecondaryFragment extends Fragment {
         btnGoBack.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_secondaryFragment_to_mainFragment));
 
         // insert all
-        ArrayList<Notes> listNotes = (ArrayList<Notes>) dao.getAllNotes();
+        Map<User, List<Notes>> mappingNotesByUser = dao.getNotesByUser(2);
+        List<Notes> listNotes = new ArrayList<>();
         ArrayList<String> notes = new ArrayList<String>();
 
+
+        for(Map.Entry<User, List<Notes>> map: mappingNotesByUser.entrySet()){
+            List<Notes> userNotes = map.getValue();
+            listNotes.addAll(userNotes);
+        }
+
         for(Notes notations : listNotes) {
-            String s = notations.title + "" + notations.note;
+            String s = notations.title + " - " + notations.note;
             notes.add(s);
         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1,
                 notes);
+
+        adapter.notifyDataSetChanged();
 
         ListView listView = (ListView) binding.listView;
         listView.setAdapter(adapter);
@@ -100,6 +106,7 @@ public class SecondaryFragment extends Fragment {
                 int pos = i;
                 Bundle bundle = new Bundle();
                 bundle.putInt("p_notesID", listNotes.get(i).id);
+                bundle.putInt("userId", userId);
 
                 getParentFragmentManager().setFragmentResult("p_notesID", bundle);
                 Navigation.findNavController(view).navigate(R.id.mainFragment);

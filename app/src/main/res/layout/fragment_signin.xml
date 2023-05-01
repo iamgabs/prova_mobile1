@@ -4,31 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SigninFragment">
+    tools:context=".SigninFragment"
+    android:background="#ffffff">
 
-<EditText
+    <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="209dp"
+        android:layout_height="38dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
+        android:background="#2B3Aff"
+        android:textColor="#ffffff"
+        android:textColorHint="#c4c4c4"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:background="#2B3Aff"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#c4c4c4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextCpf" />
 
     <Button
         android:id="@+id/button"
@@ -36,19 +45,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="48dp"
+        android:background="#2B3Aff"
         android:text="@string/signin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editTextTextCpf"
+        android:layout_width="206dp"
+        android:layout_height="37dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
+        android:background="#2B3Aff"
         android:ems="10"
         android:hint="@string/cpf"
         android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#c4c4c4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
@@ -56,11 +70,11 @@
         android:id="@+id/buttonSwitchToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="128dp"
         android:background="#00000000"
-        android:textColor="#000000"
         android:text="@string/j_tenho_uma_conta"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 

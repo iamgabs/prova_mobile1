@@ -31,11 +31,12 @@
 
     <Button
         android:id="@+id/buttonCA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="49dp"
         android:layout_marginStart="224dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="24dp"
+        android:background="#2b3aff"
         android:text="@string/excluir_tudo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +50,7 @@
         android:layout_marginEnd="68dp"
         android:layout_marginBottom="24dp"
         android:text="@string/voltar"
+        android:background="#2b3aff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonCA"
         app:layout_constraintStart_toStartOf="parent" />
