@@ -51,7 +51,6 @@ public class SecondaryFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 userId = bundle.getInt("userId");
-                System.out.println("Pegou:" + userId);
             }
         });
 
@@ -66,7 +65,9 @@ public class SecondaryFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.loginFragment);
         }
 
-        System.out.println("USER ID >>>>>>>>>>>" + userId);
+        if(userId == 0) {
+            userId = UserConfig.userId;
+        }
 
         Database db = getInstanceOfDatabase(getContext());
         NotesDAO dao = db.notesDAO();
@@ -76,7 +77,7 @@ public class SecondaryFragment extends Fragment {
         btnGoBack.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_secondaryFragment_to_mainFragment));
 
         // insert all
-        Map<User, List<Notes>> mappingNotesByUser = dao.getNotesByUser(2);
+        Map<User, List<Notes>> mappingNotesByUser = dao.getNotesByUser(userId);
         List<Notes> listNotes = new ArrayList<>();
         ArrayList<String> notes = new ArrayList<String>();
 

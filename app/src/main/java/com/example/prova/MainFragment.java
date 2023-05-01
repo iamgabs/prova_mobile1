@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
     NotesDAO dao;
     EditText editTextTitle;
     EditText editTextNote;
+    int userId;
 
 
     public MainFragment() {
@@ -60,6 +61,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 note.userId = bundle.getInt("userId");
+                userId = note.userId;
             }
         });
 
@@ -97,6 +99,9 @@ public class MainFragment extends Fragment {
         if(!UserConfig.logged) {
             Navigation.findNavController(view).navigate(R.id.loginFragment);
         }
+        if(userId == 0) {
+            userId = UserConfig.userId;
+        }
 
         db = getInstanceOfDatabase(getContext());
         dao = db.notesDAO();
@@ -109,11 +114,11 @@ public class MainFragment extends Fragment {
             if(!(editTextTitle.equals("") || editTextNote.equals(""))) {
                 note.title = String.valueOf(editTextTitle.getText());
                 note.note = String.valueOf(editTextNote.getText());
+                note.userId = userId;
                 if(note.id != 0){
                     // update note
                     dao.updateNote(note);
                     createToast(getContext(), "atualizado com sucesso!");
-                    notify();
                 } else {
                     // insert new note
                     dao.insertNewNote(note);
@@ -130,7 +135,7 @@ public class MainFragment extends Fragment {
         btnSeeAll.setOnClickListener(view1 -> {
 
             Bundle bundle = new Bundle();
-            bundle.putInt("userId", note.userId);
+            bundle.putInt("userId", userId);
 
             getParentFragmentManager().setFragmentResult("userId", bundle);
             Navigation.findNavController(view).navigate(R.id.secondaryFragment);
@@ -148,5 +153,17 @@ public class MainFragment extends Fragment {
             }
 
         });
+
+
+        // button "Logout"
+        View btnLogOut = binding.buttonLogout;
+        btnLogOut.setOnClickListener(view1 -> {
+            logout();
+            Navigation.findNavController(view).navigate(R.id.loginFragment);
+        });
+    }
+
+    private void logout() {
+        UserConfig.setLogout();
     }
 }

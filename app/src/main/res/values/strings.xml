@@ -19,4 +19,5 @@
     <string name="n_o_tenho_uma_conta">Não tenho uma conta</string>
     <string name="login">Login</string>
     <string name="logar">Logar</string>
+    <string name="logout">Logout</string>
 </resources>

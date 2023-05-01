@@ -51,6 +51,7 @@ public class LoginFragment extends Fragment {
                         // inform to application that user is logged
                         UserConfig.setAsLogged();
                         userId = user.id;
+                        UserConfig.userId = userId;
                         return true;
                     }
                 } else {

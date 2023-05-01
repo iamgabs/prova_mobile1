@@ -9,9 +9,8 @@ public class UserConfig {
     public static void setAsLogged() {
         logged = true;
     }
-
     public static void setLogout() {
-        logged = false;
+        logged = false; userId = 0;
     }
 
 }
